@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
-  <rect width="800" height="600" fill="#FDF3E7"/>
-  <g stroke="#E8936E" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M400 480 C 320 400, 230 430, 250 340 C 268 258, 350 240, 400 300 C 450 240, 532 258, 550 340 C 570 430, 480 400, 400 480 Z"/>
-    <path d="M310 250 q 20 -40 60 -30" opacity=".7"/>
-    <path d="M490 250 q -20 -40 -60 -30" opacity=".7"/>
-  </g>
-  <text x="400" y="545" font-size="34" fill="#B98A6B" text-anchor="middle" font-family="KaiTi,STKaiti,serif">照片 01 · 换上你们的回忆</text>
-</svg>
