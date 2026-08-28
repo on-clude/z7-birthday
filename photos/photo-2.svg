@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#FDF3E7"/>
+  <g stroke="#E8936E" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M400 150 v 60 M400 180 h -40 M400 180 h 40"/>
+    <path d="M320 360 h 160 v 60 a 30 30 0 0 1 -30 30 h -100 a 30 30 0 0 1 -30 -30 Z"/>
+    <path d="M340 360 l 15 -80 h 90 l 15 80"/>
+    <path d="M370 280 q 15 -22 30 0 M400 280 q 15 -22 30 0"/>
+    <circle cx="365" cy="330" r="7"/><circle cx="435" cy="330" r="7"/>
+    <path d="M390 210 q 10 14 20 0" opacity=".7"/>
+  </g>
+  <text x="400" y="545" font-size="34" fill="#B98A6B" text-anchor="middle" font-family="KaiTi,STKaiti,serif">照片 02 · 换上你们的回忆</text>
+</svg>
