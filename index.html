@@ -510,10 +510,10 @@ const CONFIG = {
     '喜欢你笑起来的样子，喜欢你认真时微微皱起的眉头，也喜欢你偶尔的小脾气。',
     '谢谢你，把平凡的日子过成了我舍不得快进的故事。',
     '你是我想到就会安心的人，也是我所有计划里都想带上的人。',
-    '今天是你的生日,'
+    '今天是你的生日,',
     '我想说：无论世界怎么绕圈，我都会回到你身边。',
     '往后的山路、海边、雨夜和晴天，我都想和你一起走。',
-    '生日快乐!'
+    '生日快乐!',
     '希望以后每一个生日，我都在。'
   ],
   letterSign: '—— 永远爱你的 fanfan',
@@ -685,7 +685,7 @@ $('#replayBtn').addEventListener('click', () => burstConfetti(80));
       <div class="tl-text">${t.text}</div>
       ${t.photo ? `
       <figure class="tl-photo${t.photo.tall ? ' tall' : ''}" data-src="${t.photo.src}" data-cap="${t.photo.cap}">
-        <img src="${t.photo.src}" alt="${t.photo.cap}" loading="lazy">
+        <img src="${t.photo.src}" alt="${t.photo.cap}" decoding="async">
         <figcaption>${t.photo.cap}</figcaption>
       </figure>` : ''}
     </div>`).join('');
