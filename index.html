@@ -453,26 +453,26 @@ const CONFIG = {
 
   /* ---- 照片墙：把照片放到 photos/ 文件夹，并在这里列出文件名 ---- */
   photos: [
-    { src: 'photos/photo-1.svg', cap: 'our story · 1' },
-    { src: 'photos/photo-2.svg', cap: 'our story · 2' },
-    { src: 'photos/photo-3.svg', cap: 'our story · 3' },
-    { src: 'photos/photo-4.svg', cap: 'our story · 4' },
-    { src: 'photos/photo-5.svg', cap: 'our story · 5' },
-    { src: 'photos/photo-6.svg', cap: 'our story · 6' }
+    { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-1.svg', cap: 'our story · 1' },
+    { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-2.svg', cap: 'our story · 2' },
+    { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-3.svg', cap: 'our story · 3' },
+    { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-4.svg', cap: 'our story · 4' },
+    { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-5.svg', cap: 'our story · 5' },
+    { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-6.svg', cap: 'our story · 6' }
   ],
 
   /* ---- 时间轴：按时间顺序写你们的节点 ----
      想在某一天放一张照片？给这一项加上 photo: { src: 'photos/xxx.jpg', cap: '照片下的小字' } */
   timeline: [
     { date: '2026年4月26日', title: '加上微信', text: '故事，从一条好友申请开始。',
-      photo: { src: 'photos/photo-add-wechat.jpg', cap: '我们的开始 · 4月26日', tall: true } },
+      photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-add-wechat.jpg', cap: '我们的开始 · 4月26日', tall: true } },
     { date: '2026年5月7日',  title: '第一次见面 · 麦当劳 🍟', text: '中午在公司附近的麦当劳，她说要自己点单，我坚持让她用我的手机点——结果她只点了一个14.9的麦香鱼😂。午饭后，我把一直放在车上的三丽鸥娃娃送给了她，这是我们第一次见面的礼物。🐟🎁' },
     { date: '2026年5月23日', title: '第一次一起出去玩', text: '和大家一起去了安吉，第一次看你在旅途中笑得那么开心。⛰️',
-      photo: { src: 'photos/photo-anji.jpg', cap: '安吉 · 第一次一起出去玩' } },
+      photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-anji.jpg', cap: '安吉 · 第一次一起出去玩' } },
     { date: '2026年6月6日',  title: '临港的夜晚 · 我们的纪念日', text: '她第一次带我去吃金强牛肉面，从此我也爱上了金强🍜。晚上在酒店，一起吃肉夹馍和福鼎肉片，度过了美好的夜晚🌙。第二天在月微苑，还吃到了奶奶做的山西菜卷。',
-      photo: { src: 'photos/photo-66.jpg', cap: '临港 · 6月6日' } },
+      photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-66.jpg', cap: '临港 · 6月6日' } },
     { date: '2026年6月15日', title: '迪士尼的一天', text: '第一次一起去迪士尼。也是这一天，我们说好：以后每年的6月6日，都是我们的纪念日。🏰',
-      photo: { src: 'photos/photo-disney.jpg', cap: '迪士尼 · 6月15日' } },
+      photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-disney.jpg', cap: '迪士尼 · 6月15日' } },
     { date: '2026年8月29日', title: '你的生日', text: 'z7，生日快乐！这是陪你过的第一个生日。🎂' }
   ],
 
@@ -491,7 +491,7 @@ const CONFIG = {
   music: {
     title: '兜圈',
     artist: '林宥嘉',
-    src: 'music/douquan.mp3',        // mp3 已放在 music/ 文件夹，打开页面自动播放
+    src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/music/douquan.mp3',        // mp3 已放在 music/ 文件夹，打开页面自动播放
     lyric: '“路过了学校花店，荒野到海边，<em>有一种浪漫的爱是浪费时间</em>。……<em>幸福兜了一个圈</em>。”'
   }
 };
@@ -689,7 +689,7 @@ $('#replayBtn').addEventListener('click', () => burstConfetti(80));
   audio.addEventListener('ended', () => { vinyl.classList.remove('playing'); btn.textContent = '▶ 播放这首歌'; });
 
   if(!CONFIG.music.src){
-    tip.innerHTML = '💡 小提示：把《兜圈》的 mp3 文件放进 <b>music/</b> 文件夹，<br>再在页面代码顶部 <b>CONFIG.music.src</b> 里填上文件名（如 <b>music/douquan.mp3</b>），就能自动播放啦。';
+    tip.innerHTML = '💡 小提示：把《兜圈》的 mp3 文件放进 <b>music/</b> 文件夹，<br>再在页面代码顶部 <b>CONFIG.music.src</b> 里填上文件名（如 <b>https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/music/douquan.mp3</b>），就能自动播放啦。';
     btn.textContent = '🎧 去听这首歌';
     btn.addEventListener('click', () => {
       window.open('https://music.163.com/#/search/m/?s=%E5%85%9C%E5%9C%88%20%E6%9E%97%E5%AE%A5%E5%98%89', '_blank');
