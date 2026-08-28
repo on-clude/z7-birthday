@@ -86,6 +86,37 @@ body{
   margin-top:34px;animation:bob 2.2s ease-in-out infinite;
 }
 .cover-hint small{display:block;font-size:.72em;color:#B8A08E;margin-top:6px}
+.cover-stage{display:flex;flex-direction:column;align-items:center;animation:stageIn .5s ease}
+@keyframes stageIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+/* 生日蛋糕 + 蜡烛（开场小游戏） */
+.cake-zone{display:flex;flex-direction:column;align-items:center;cursor:pointer;padding-top:14px}
+.cake-emoji{font-size:clamp(4.5rem,26vw,7rem);line-height:1.1}
+.candles{display:flex;gap:14px;margin-bottom:4px}
+.candle{
+  width:10px;height:36px;position:relative;
+  background:repeating-linear-gradient(45deg,var(--rose) 0 6px,#fff 6px 12px);
+  border:2px solid var(--ink);border-radius:4px 4px 2px 2px;
+}
+.candle .flame{
+  position:absolute;top:-20px;left:50%;transform:translateX(-50%);
+  width:14px;height:20px;opacity:0;transition:opacity .25s;
+  background:radial-gradient(circle at 50% 80%,#FFD166 0 35%,var(--coral) 75%,transparent);
+  border-radius:50% 50% 50% 50%/62% 62% 38% 38%;
+  animation:flicker .45s ease-in-out infinite;
+}
+.candle.lit .flame{opacity:1}
+@keyframes flicker{
+  0%,100%{transform:translateX(-50%) scale(1)}
+  50%{transform:translateX(-50%) scale(.85,.92) translateY(-1px)}
+}
+.blow-btn{
+  font-family:var(--hand);font-size:1.2rem;color:#fff;background:var(--coral);
+  border:3px dashed #fff;border-radius:16px 5px 18px 6px/6px 18px 5px 16px;
+  padding:.5em 1.7em;cursor:pointer;margin-top:20px;box-shadow:3px 4px 0 rgba(92,74,61,.25);
+  transition:transform .2s;
+}
+.blow-btn:hover{transform:translateY(-2px)}
+.done-emoji{font-size:clamp(3.5rem,16vw,5rem);animation:wiggle 2.6s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
 /* 手绘礼物盒 */
@@ -307,19 +338,39 @@ footer .heart{color:var(--coral);display:inline-block;animation:pulse 1.2s ease-
 <!-- 漂浮爱心背景 -->
 <div class="float-hearts" id="floatHearts" aria-hidden="true"></div>
 
-<!-- ============ 开场：拆礼物 ============ -->
+<!-- ============ 开场：拆礼物 → 点蜡烛许愿 → 开始 ============ -->
 <div id="cover" role="button" aria-label="打开礼物">
-  <div class="gift" aria-hidden="true">
-    <div class="bow"></div>
-    <div class="knot"></div>
-    <div class="lid"></div>
-    <div class="ribbon-v"></div>
-    <div class="ribbon-h"></div>
-    <div class="box"></div>
+  <!-- 第 1 幕：拆礼物（第一次点击同时解锁并播放音乐） -->
+  <div class="cover-stage" id="stageGift">
+    <div class="gift" aria-hidden="true">
+      <div class="bow"></div>
+      <div class="knot"></div>
+      <div class="lid"></div>
+      <div class="ribbon-v"></div>
+      <div class="ribbon-h"></div>
+      <div class="box"></div>
+    </div>
+    <div class="cover-hint">
+      z7，这里有一份礼物 🎁<br>
+      <small>点一下，拆开它</small>
+    </div>
   </div>
-  <div class="cover-hint">
-    z7，这里有一份礼物 🎁<br>
-    <small>点一下，拆开它</small>
+  <!-- 第 2 幕：点蜡烛许愿 -->
+  <div class="cover-stage" id="stageCake" style="display:none">
+    <div class="cake-zone" id="cakeBox">
+      <div class="candles" id="candlesRow"></div>
+      <div class="cake-emoji">🎂</div>
+    </div>
+    <div class="cover-hint" id="cakeHint">先许个愿，然后点一下蜡烛 🕯️</div>
+    <button class="blow-btn" id="blowBtn" style="display:none">呼——吹灭蜡烛 ✨</button>
+  </div>
+  <!-- 第 3 幕：愿望达成 -->
+  <div class="cover-stage" id="stageDone" style="display:none">
+    <div class="done-emoji">✨</div>
+    <div class="cover-hint">
+      愿望一定会实现<br>
+      <small>点这里，开始我们的故事</small>
+    </div>
   </div>
 </div>
 
@@ -433,12 +484,12 @@ const CONFIG = {
   timeline: [
     { date: '2026年4月26日', title: '加上微信', text: '故事，从一条好友申请开始。',
       photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-add-wechat.jpg', cap: '我们的开始 · 4月26日', tall: true } },
-    { date: '2026年5月7日',  title: '第一次见面 · 麦当劳 🍟', text: '中午在公司附近的麦当劳，她说要自己点单，我坚持让她用我的手机点——结果她只点了一个14.9的麦香鱼😂。午饭后，我把一直放在车上的三丽鸥娃娃送给了她，这是我们第一次见面的礼物。🐟🎁' },
+    { date: '2026年5月7日',  title: '第一次见面 · 麦当劳 🍟', text: '中午在公司附近的麦当劳，你说要自己点单，我坚持让你用我的手机点——结果你只点了一个14.9的麦香鱼😂。午饭后，我把一直放在车上的三丽鸥娃娃送给了你，这是我们第一次见面的礼物。🐟🎁' },
     { date: '2026年5月10日', title: '在 wanqi 家包饺子', text: '我们在wanqi家一起包了饺子。那天我一整天都在偷偷看你，后来才知道，你也在看我——情愫悄悄升起，我们互相喜欢得不得了。🥟',
       photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-jiaozi.jpg', cap: '包饺子 · 5月10日' } },
     { date: '2026年5月23日', title: '第一次一起出去玩', text: '和大家一起去了安吉，第一次看你在旅途中笑得那么开心。⛰️',
       photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-anji.jpg', cap: '安吉 · 第一次一起出去玩' } },
-    { date: '2026年6月6日',  title: '临港的夜晚 · 我们的纪念日', text: '她第一次带我去吃金强牛肉面，从此我也爱上了金强🍜。晚上在酒店，一起吃肉夹馍和福鼎肉片，度过了美好的夜晚🌙。第二天在月微苑，还吃到了奶奶做的山西菜卷。',
+    { date: '2026年6月6日',  title: '临港的夜晚 · 我们的纪念日', text: '你第一次带我去吃金强牛肉面，从此我也爱上了金强🍜。晚上在酒店，一起吃肉夹馍和福鼎肉片，度过了美好的夜晚🌙。第二天在月微苑，还吃到了奶奶做的山西菜卷。',
       photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-66.jpg', cap: '临港 · 6月6日', tall: true } },
     { date: '2026年6月13日', title: '四明山 · 下雨天进山', text: '我们一起去了四明山。我们都爱下雨天开车进山，听着雨声在山路上慢慢晃，周末的烦恼都被甩在弯道后面。⛰️🌧️',
       photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-simingshan.jpg', cap: '四明山 · 6月13日', tall: true } },
@@ -451,17 +502,15 @@ const CONFIG = {
     { date: '2026年8月29日', title: '你的生日', text: 'z7，生日快乐！这是陪你过的第一个生日。🎂' }
   ],
 
-  /* ---- 给她的信：用你自己的话重写这一段 ---- */
+  /* ---- 给 z7 的信：用你自己的话重写这一段 ---- */
   letter: [
     '亲爱的 z7：',
-    '从4月26日加上微信，到5月7日公司楼下那顿麦当劳——我们的故事，就这样悄悄开始了。',
-    '后来，我们在wanqi家包饺子，我一整天都在偷偷看你，后来才知道你也在看我；',
-    '下雨天我们开车进四明山，绕着山路慢慢晃，全世界只剩下雨声和我们；',
-    '七夕那晚的运城大盘鸡，还有你送我的那双跑步鞋，都是我舍不得忘掉的时刻。',
     '遇见你之后，我的每一天都像被偷偷加了糖。',
+    '喜欢你笑起来的样子，喜欢你认真时微微皱起的眉头，也喜欢你偶尔的小脾气。',
     '谢谢你，把平凡的日子过成了我舍不得快进的故事。',
+    '你是我想到就会安心的人，也是我所有计划里都想带上的人。',
     '今天是你的生日，我想说：无论世界怎么绕圈，我都会回到你身边。',
-    '桐庐的大奇山还等着我们，往后的山路、海边、雨夜和晴天，我都想和你一起走。',
+    '往后的山路、海边、雨夜和晴天，我都想和你一起走。',
     '生日快乐。希望以后每一个生日，我都在。'
   ],
   letterSign: '—— 永远爱你的 fanfan',
@@ -530,12 +579,51 @@ function burstConfetti(n = 90){
   }
 }
 
-/* ---------- 开场拆礼物 ---------- */
-document.body.style.overflow = 'hidden'; // 拆礼物前锁定滚动
+/* ---------- 开场：拆礼物 → 点蜡烛许愿 → 开始 ----------
+   第 1 次点击（拆礼物）就会解锁并播放音乐，
+   之后的小游戏让音乐有足够时间缓冲，她进入正式内容时歌已经响了 */
+document.body.style.overflow = 'hidden'; // 开场前锁定滚动
+let coverStage = 'gift';
+
+function showCoverStage(id){
+  document.querySelectorAll('.cover-stage').forEach(s => s.style.display = 'none');
+  document.getElementById(id).style.display = 'flex';
+}
+
 $('#cover').addEventListener('click', () => {
-  burstConfetti(110);
-  setTimeout(() => $('#cover').classList.add('hidden'), 350);
-  document.body.style.overflow = '';
+  if(coverStage === 'gift'){
+    burstConfetti(80);
+    showCoverStage('stageCake');
+    coverStage = 'cake';
+  } else if(coverStage === 'done'){
+    burstConfetti(60);
+    $('#cover').classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+});
+
+/* 点蜡烛：点亮 → 吹灭 */
+const candlesRow = $('#candlesRow');
+for(let i = 0; i < 3; i++){
+  const c = document.createElement('div');
+  c.className = 'candle';
+  c.innerHTML = '<span class="flame"></span>';
+  candlesRow.appendChild(c);
+}
+$('#cakeBox').addEventListener('click', (e) => {
+  e.stopPropagation();
+  if(coverStage !== 'cake') return;
+  document.querySelectorAll('.candle').forEach(c => c.classList.add('lit'));
+  $('#cakeHint').innerHTML = '许好愿了吗？那就吹灭蜡烛吧 ✨';
+  $('#blowBtn').style.display = 'inline-block';
+});
+$('#blowBtn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  if(coverStage !== 'cake') return;
+  document.querySelectorAll('.candle').forEach(c => c.classList.remove('lit'));
+  burstConfetti(50);
+  showCoverStage('stageDone');
+  coverStage = 'done';
 });
 $('#replayBtn').addEventListener('click', () => burstConfetti(80));
 
