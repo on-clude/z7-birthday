@@ -204,31 +204,9 @@ section{position:relative;margin-top:70px}
 .tl-photo:hover{transform:rotate(0) scale(1.03)}
 .tl-photo img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#F4E9DA}
 .tl-photo figcaption{font-family:var(--eng);color:var(--ink-soft);text-align:center;font-size:.95rem;margin-top:6px}
-/* 竖屏照片：窄一点的竖版相框（9:16），完整展示竖图 */
+/* 竖屏照片：窄一点的竖版相框，按照片原始比例完整展示 */
 .tl-photo.tall{max-width:250px}
-.tl-photo.tall img{aspect-ratio:9/16}
-
-/* ---------- 照片墙 ---------- */
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:26px 18px;padding-top:14px}
-.polaroid{
-  position:relative;background:var(--paper);padding:12px 12px 46px;
-  border:2px solid rgba(92,74,61,.25);
-  box-shadow:4px 6px 0 rgba(92,74,61,.14);
-  cursor:pointer;transition:transform .35s ease, box-shadow .35s ease;
-}
-.polaroid:nth-child(1){transform:rotate(-3deg)}
-.polaroid:nth-child(2){transform:rotate(2deg)}
-.polaroid:nth-child(3){transform:rotate(-1.5deg)}
-.polaroid:nth-child(4){transform:rotate(2.6deg)}
-.polaroid:nth-child(5){transform:rotate(-2.2deg)}
-.polaroid:nth-child(6){transform:rotate(1.4deg)}
-.polaroid:hover{transform:rotate(0) scale(1.06);box-shadow:8px 12px 0 rgba(92,74,61,.18);z-index:5}
-.polaroid img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#F4E9DA}
-.polaroid figcaption{
-  position:absolute;left:0;right:0;bottom:10px;text-align:center;
-  font-family:var(--eng);color:var(--ink-soft);font-size:1.15rem;
-}
-.gallery-note{text-align:center;color:#B8A08E;font-size:.9rem;margin-top:20px}
+.tl-photo.tall img{aspect-ratio:auto;height:auto}
 
 /* ---------- 信 ---------- */
 #letter .hand-card{padding:40px 26px 34px}
@@ -271,15 +249,6 @@ section{position:relative;margin-top:70px}
   font-size:1.02rem;padding:0 8px;
 }
 .lyric em{color:var(--coral);font-style:normal}
-.music-links{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
-.music-links a{
-  font-size:.98rem;color:#fff;text-decoration:none;background:var(--sage);
-  border:2.5px dashed #fff;border-radius:12px 4px 14px 5px/5px 14px 4px 12px;
-  padding:.35em 1.1em;box-shadow:2px 3px 0 rgba(92,74,61,.2);transition:transform .2s;
-}
-.music-links a:hover{transform:translateY(-2px)}
-.music-tip{font-size:.85rem;color:#B8A08E;text-align:center;line-height:1.7}
-
 /* ---------- 页脚 ---------- */
 footer{text-align:center;margin-top:80px;color:var(--ink-soft);font-size:1rem;line-height:2}
 footer .heart{color:var(--coral);display:inline-block;animation:pulse 1.2s ease-in-out infinite}
@@ -290,6 +259,15 @@ footer .heart{color:var(--coral);display:inline-block;animation:pulse 1.2s ease-
   padding:.4em 1.2em;cursor:pointer;transition:all .2s;
 }
 .replay-btn:hover{color:var(--coral);border-color:var(--coral);transform:rotate(-1.5deg)}
+
+/* ---------- 支付宝红包 ---------- */
+.alipay-card{text-align:center;padding:42px 24px 38px;background:linear-gradient(180deg,var(--paper),#FFF0E4)}
+.alipay-env{font-size:3rem;display:inline-block;animation:bob 2.4s ease-in-out infinite}
+.alipay-card h2{font-size:clamp(1.4rem,4.6vw,1.9rem);margin:12px 0 8px;font-weight:400}
+.alipay-sub{color:var(--ink-soft);font-size:1.05rem}
+.alipay-num{font-size:clamp(2.8rem,12vw,4.2rem);color:var(--coral);margin:12px 0 8px;font-weight:700;text-shadow:3px 3px 0 rgba(247,168,184,.45)}
+.alipay-num span{font-size:.55em;vertical-align:super;color:var(--peach)}
+.alipay-note{color:var(--ink-soft);line-height:2.1;font-size:1.02rem}
 
 /* ---------- 灯箱（点击照片放大） ---------- */
 #lightbox{
@@ -318,8 +296,6 @@ footer .heart{color:var(--coral);display:inline-block;animation:pulse 1.2s ease-
 
 /* ---------- 响应式 ---------- */
 @media (max-width:520px){
-  .gallery{grid-template-columns:repeat(2,1fr);gap:16px 10px}
-  .polaroid{padding:8px 8px 40px}
   .tl-wrap{padding-left:26px}
   .tl-dot{left:-25px}
   #hero{padding-top:56px}
@@ -381,13 +357,6 @@ footer .heart{color:var(--coral);display:inline-block;animation:pulse 1.2s ease-
     <div class="tl-wrap" id="timelineList"></div>
   </section>
 
-  <!-- ============ 照片墙 ============ -->
-  <section id="gallery" class="reveal">
-    <h2 style="text-align:center;font-weight:400;font-size:clamp(1.6rem,5vw,2.2rem);margin-bottom:10px">我们的回忆 <span style="color:var(--rose)">♡</span></h2>
-    <div class="gallery" id="galleryList"></div>
-    <p class="gallery-note">（点开照片可以放大看哦）</p>
-  </section>
-
   <!-- ============ 一封信 ============ -->
   <section id="letter" class="reveal">
     <div class="hand-card">
@@ -411,11 +380,18 @@ footer .heart{color:var(--coral);display:inline-block;animation:pulse 1.2s ease-
       </div>
       <p class="lyric" id="lyricBox"></p>
       <button class="play-btn" id="playBtn">▶ 播放这首歌</button>
-      <div class="music-links">
-        <a href="https://music.163.com/#/search/m/?s=%E5%85%9C%E5%9C%88%20%E6%9E%97%E5%AE%A5%E5%98%89" target="_blank" rel="noopener">去网易云音乐听 🎧</a>
-        <a href="https://www.kugou.com/song-36/naqkke8.html" target="_blank" rel="noopener">酷狗音乐 🎵</a>
-      </div>
-      <p class="music-tip" id="musicTip"></p>
+    </div>
+  </section>
+
+  <!-- ============ 支付宝红包 ============ -->
+  <section id="alipay" class="reveal">
+    <div class="hand-card alipay-card">
+      <div class="tape" style="background:rgba(255,126,95,.6)"></div>
+      <div class="alipay-env">🧧</div>
+      <h2>打开支付宝，查收你的生日红包</h2>
+      <p class="alipay-sub">有一个惊喜，正在支付宝里等你。</p>
+      <div class="alipay-num">1314<span>0</span></div>
+      <p class="alipay-note">1314 是我爱你的期限，多出来的那个 0，是给你的一整圈圆满。<br>爱你，一生一世。</p>
     </div>
   </section>
 
@@ -451,28 +427,27 @@ const CONFIG = {
   dateLabel: '我们已经在一起',        // 日期卡片上的标题文字
   birthday: '2026-08-29',            // 她的生日（自动显示倒计时，生日当天显示"就是今天！"）
 
-  /* ---- 照片墙：把照片放到 photos/ 文件夹，并在这里列出文件名 ---- */
-  photos: [
-    { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-1.svg', cap: 'our story · 1' },
-    { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-2.svg', cap: 'our story · 2' },
-    { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-3.svg', cap: 'our story · 3' },
-    { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-4.svg', cap: 'our story · 4' },
-    { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-5.svg', cap: 'our story · 5' },
-    { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-6.svg', cap: 'our story · 6' }
-  ],
-
   /* ---- 时间轴：按时间顺序写你们的节点 ----
-     想在某一天放一张照片？给这一项加上 photo: { src: 'photos/xxx.jpg', cap: '照片下的小字' } */
+     想在某一天放一张照片？给这一项加上 photo: { src: 'photos/xxx.jpg', cap: '照片下的小字' }
+     竖屏照片加 tall: true（按原比例完整展示） */
   timeline: [
     { date: '2026年4月26日', title: '加上微信', text: '故事，从一条好友申请开始。',
       photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-add-wechat.jpg', cap: '我们的开始 · 4月26日', tall: true } },
     { date: '2026年5月7日',  title: '第一次见面 · 麦当劳 🍟', text: '中午在公司附近的麦当劳，她说要自己点单，我坚持让她用我的手机点——结果她只点了一个14.9的麦香鱼😂。午饭后，我把一直放在车上的三丽鸥娃娃送给了她，这是我们第一次见面的礼物。🐟🎁' },
+    { date: '2026年5月10日', title: '在 wanqi 家包饺子', text: '我们在wanqi家一起包了饺子。那天我一整天都在偷偷看你，后来才知道，你也在看我——情愫悄悄升起，我们互相喜欢得不得了。🥟',
+      photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-jiaozi.jpg', cap: '包饺子 · 5月10日' } },
     { date: '2026年5月23日', title: '第一次一起出去玩', text: '和大家一起去了安吉，第一次看你在旅途中笑得那么开心。⛰️',
       photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-anji.jpg', cap: '安吉 · 第一次一起出去玩' } },
     { date: '2026年6月6日',  title: '临港的夜晚 · 我们的纪念日', text: '她第一次带我去吃金强牛肉面，从此我也爱上了金强🍜。晚上在酒店，一起吃肉夹馍和福鼎肉片，度过了美好的夜晚🌙。第二天在月微苑，还吃到了奶奶做的山西菜卷。',
-      photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-66.jpg', cap: '临港 · 6月6日' } },
+      photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-66.jpg', cap: '临港 · 6月6日', tall: true } },
+    { date: '2026年6月13日', title: '四明山 · 下雨天进山', text: '我们一起去了四明山。我们都爱下雨天开车进山，听着雨声在山路上慢慢晃，周末的烦恼都被甩在弯道后面。⛰️🌧️',
+      photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-simingshan.jpg', cap: '四明山 · 6月13日', tall: true } },
     { date: '2026年6月15日', title: '迪士尼的一天', text: '第一次一起去迪士尼。也是这一天，我们说好：以后每年的6月6日，都是我们的纪念日。🏰',
       photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-disney.jpg', cap: '迪士尼 · 6月15日' } },
+    { date: '2026年8月19日', title: '我们的第一个七夕', text: '晚上下班一起去吃了运城大盘鸡🍗。第二天，宝宝送了我一双穿着非常舒服的跑步鞋👟，我很喜欢。',
+      photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-qixi.jpg', cap: '七夕 · 8月19日', tall: true } },
+    { date: '2026年8月22日', title: '桐庐 · 第二次短途自驾', text: '在马岭古道徒步，旅途总是那么开心。大奇山就先留着，等它开放了、等我们有时间了，再一起去。🥾',
+      photo: { src: 'https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/photos/photo-tonglu.jpg', cap: '桐庐 · 8月22日' } },
     { date: '2026年8月29日', title: '你的生日', text: 'z7，生日快乐！这是陪你过的第一个生日。🎂' }
   ],
 
@@ -480,12 +455,16 @@ const CONFIG = {
   letter: [
     '亲爱的 z7：',
     '从4月26日加上微信，到5月7日公司楼下那顿麦当劳——我们的故事，就这样悄悄开始了。',
+    '后来，我们在wanqi家包饺子，我一整天都在偷偷看你，后来才知道你也在看我；',
+    '下雨天我们开车进四明山，绕着山路慢慢晃，全世界只剩下雨声和我们；',
+    '七夕那晚的运城大盘鸡，还有你送我的那双跑步鞋，都是我舍不得忘掉的时刻。',
     '遇见你之后，我的每一天都像被偷偷加了糖。',
     '谢谢你，把平凡的日子过成了我舍不得快进的故事。',
     '今天是你的生日，我想说：无论世界怎么绕圈，我都会回到你身边。',
+    '桐庐的大奇山还等着我们，往后的山路、海边、雨夜和晴天，我都想和你一起走。',
     '生日快乐。希望以后每一个生日，我都在。'
   ],
-  letterSign: '—— 永远爱你的我',
+  letterSign: '—— 永远爱你的 fanfan',
 
   /* ---- 音乐：默认播放器是空白的，填入 mp3 地址就能直接播 ---- */
   music: {
@@ -501,12 +480,16 @@ const CONFIG = {
    ============================================================ */
 const $ = s => document.querySelector(s);
 
-/* 打开照片灯箱（照片墙 / 时间轴照片共用） */
+/* 打开照片灯箱（时间轴照片点击放大） */
 function openLightbox(src, cap){
   $('#lbImg').src = src;
   $('#lbCap').textContent = cap;
   $('#lightbox').classList.add('open');
 }
+/* 点击灯箱任意处关闭 */
+document.getElementById('lightbox').addEventListener('click', () => {
+  document.getElementById('lightbox').classList.remove('open');
+});
 
 /* ---------- 漂浮爱心背景 ---------- */
 (function makeHearts(){
@@ -620,20 +603,6 @@ $('#replayBtn').addEventListener('click', () => burstConfetti(80));
   });
 })();
 
-/* ---------- 照片墙 + 灯箱 ---------- */
-(function renderGallery(){
-  $('#galleryList').innerHTML = CONFIG.photos.map(p => `
-    <figure class="polaroid reveal" data-src="${p.src}" data-cap="${p.cap}">
-      <img src="${p.src}" alt="${p.cap}" loading="lazy">
-      <figcaption>${p.cap}</figcaption>
-    </figure>`).join('');
-  const lb = $('#lightbox');
-  document.querySelectorAll('.polaroid').forEach(f => {
-    f.addEventListener('click', () => openLightbox(f.dataset.src, f.dataset.cap));
-  });
-  lb.addEventListener('click', () => lb.classList.remove('open'));
-})();
-
 /* ---------- 滚动浮现 ---------- */
 (function scrollReveal(){
   const io = new IntersectionObserver(es => {
@@ -680,7 +649,6 @@ $('#replayBtn').addEventListener('click', () => burstConfetti(80));
 /* ---------- 音乐播放器（打开即自动播放） ---------- */
 (function musicPlayer(){
   const audio = $('#bgm'), vinyl = $('#vinyl'), btn = $('#playBtn');
-  const tip = $('#musicTip');
   $('#lyricBox').innerHTML = CONFIG.music.lyric || '';
 
   // 界面状态跟随播放器真实状态（无论音乐是被自动播放还是手动播放）
@@ -688,18 +656,7 @@ $('#replayBtn').addEventListener('click', () => burstConfetti(80));
   audio.addEventListener('pause', () => { vinyl.classList.remove('playing'); btn.textContent = '▶ 播放这首歌'; });
   audio.addEventListener('ended', () => { vinyl.classList.remove('playing'); btn.textContent = '▶ 播放这首歌'; });
 
-  if(!CONFIG.music.src){
-    tip.innerHTML = '💡 小提示：把《兜圈》的 mp3 文件放进 <b>music/</b> 文件夹，<br>再在页面代码顶部 <b>CONFIG.music.src</b> 里填上文件名（如 <b>https://cdn.jsdelivr.net/gh/on-clude/z7-birthday@main/music/douquan.mp3</b>），就能自动播放啦。';
-    btn.textContent = '🎧 去听这首歌';
-    btn.addEventListener('click', () => {
-      window.open('https://music.163.com/#/search/m/?s=%E5%85%9C%E5%9C%88%20%E6%9E%97%E5%AE%A5%E5%98%89', '_blank');
-      toast('去网易云音乐听《兜圈》吧 🎶');
-    });
-    return;
-  }
-
   audio.src = CONFIG.music.src;
-  tip.innerHTML = '♪ 打开页面就会自动播放《兜圈》<br>如果被浏览器拦截，点一下页面任意位置（比如拆礼物）就能开始';
 
   btn.addEventListener('click', () => {
     if(audio.paused) audio.play(); else audio.pause();
