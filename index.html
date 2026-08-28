@@ -204,6 +204,9 @@ section{position:relative;margin-top:70px}
 .tl-photo:hover{transform:rotate(0) scale(1.03)}
 .tl-photo img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:#F4E9DA}
 .tl-photo figcaption{font-family:var(--eng);color:var(--ink-soft);text-align:center;font-size:.95rem;margin-top:6px}
+/* 竖屏照片：窄一点的竖版相框（9:16），完整展示竖图 */
+.tl-photo.tall{max-width:250px}
+.tl-photo.tall img{aspect-ratio:9/16}
 
 /* ---------- 照片墙 ---------- */
 .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:26px 18px;padding-top:14px}
@@ -461,14 +464,15 @@ const CONFIG = {
   /* ---- 时间轴：按时间顺序写你们的节点 ----
      想在某一天放一张照片？给这一项加上 photo: { src: 'photos/xxx.jpg', cap: '照片下的小字' } */
   timeline: [
-    { date: '2026年4月26日', title: '加上微信', text: '故事，从一条好友申请开始。' },
-    { date: '2026年5月7日',  title: '第一次见面', text: '公司附近的麦当劳，是我们故事开始的地方。🍟' },
+    { date: '2026年4月26日', title: '加上微信', text: '故事，从一条好友申请开始。',
+      photo: { src: 'photos/photo-add-wechat.jpg', cap: '我们的开始 · 4月26日', tall: true } },
+    { date: '2026年5月7日',  title: '第一次见面 · 麦当劳 🍟', text: '中午在公司附近的麦当劳，她说要自己点单，我坚持让她用我的手机点——结果她只点了一个14.9的麦香鱼😂。午饭后，我把一直放在车上的三丽鸥娃娃送给了她，这是我们第一次见面的礼物。🐟🎁' },
     { date: '2026年5月23日', title: '第一次一起出去玩', text: '和大家一起去了安吉，第一次看你在旅途中笑得那么开心。⛰️',
-      photo: { src: 'photos/photo-anji.svg', cap: '安吉 · 第一次一起出去玩' } },
-    { date: '2026年6月6日',  title: '临港的夜晚 · 我们的纪念日', text: '那晚在临港，肉夹馍和福鼎肉片，还有你——美好的夜晚。🌙',
-      photo: { src: 'photos/photo-lingang.svg', cap: '临港 · 6月6日' } },
+      photo: { src: 'photos/photo-anji.jpg', cap: '安吉 · 第一次一起出去玩' } },
+    { date: '2026年6月6日',  title: '临港的夜晚 · 我们的纪念日', text: '她第一次带我去吃金强牛肉面，从此我也爱上了金强🍜。晚上在酒店，一起吃肉夹馍和福鼎肉片，度过了美好的夜晚🌙。第二天在月微苑，还吃到了奶奶做的山西菜卷。',
+      photo: { src: 'photos/photo-66.jpg', cap: '临港 · 6月6日' } },
     { date: '2026年6月15日', title: '迪士尼的一天', text: '第一次一起去迪士尼。也是这一天，我们说好：以后每年的6月6日，都是我们的纪念日。🏰',
-      photo: { src: 'photos/photo-disney.svg', cap: '迪士尼 · 6月15日' } },
+      photo: { src: 'photos/photo-disney.jpg', cap: '迪士尼 · 6月15日' } },
     { date: '2026年8月29日', title: '你的生日', text: 'z7，生日快乐！这是陪你过的第一个生日。🎂' }
   ],
 
@@ -606,7 +610,7 @@ $('#replayBtn').addEventListener('click', () => burstConfetti(80));
       <div class="tl-title">${t.title}</div>
       <div class="tl-text">${t.text}</div>
       ${t.photo ? `
-      <figure class="tl-photo" data-src="${t.photo.src}" data-cap="${t.photo.cap}">
+      <figure class="tl-photo${t.photo.tall ? ' tall' : ''}" data-src="${t.photo.src}" data-cap="${t.photo.cap}">
         <img src="${t.photo.src}" alt="${t.photo.cap}" loading="lazy">
         <figcaption>${t.photo.cap}</figcaption>
       </figure>` : ''}
